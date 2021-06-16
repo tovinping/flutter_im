@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_im/pages/contact.dart';
+import 'chat.dart';
+import 'chat.dart';
+import 'me.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,31 +10,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeState extends State {
-  void _goLogin() => {Navigator.of(context).pushNamed('login')};
-
-  void _goLayoutDemo() => {Navigator.of(context).pushNamed('demoLayout')};
-
-  void _goWillPop() => {Navigator.of(context).pushNamed('willPop')};
-
+  int _currentIndex = 0;
+  List<String> tabs = ['消息', '联系人', '我的'];
+  List<Widget> pages = [ChatPage(), ContactPage(), MetPage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(title: Text('Home')),
-        body: Container(
-          width: double.infinity,
-          child: Wrap(
-            direction: Axis.horizontal,
-            alignment: WrapAlignment.spaceBetween,
-            children: [
-              ElevatedButton(
-                child: Text('goLogin123'),
-                onPressed: _goLogin,
-              ),
-              ElevatedButton(
-                  onPressed: _goLayoutDemo, child: Text('goLayoutDemo123')),
-              ElevatedButton(onPressed: _goWillPop, child: Text('拦截返回'))
-            ],
-          ),
-        ));
+      body: SafeArea(
+        child: pages[_currentIndex],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.messenger), label: '消息'),
+          BottomNavigationBarItem(icon: Icon(Icons.contact_page), label: '联系人'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: '我的'),
+        ],
+        currentIndex: _currentIndex,
+        onTap: (index) => {
+          setState(() {
+            _currentIndex = index;
+          })
+        },
+      ),
+    );
   }
 }

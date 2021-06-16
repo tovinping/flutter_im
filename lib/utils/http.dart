@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:flutter_im/models/http.dart';
+
 const devBaseUrl = 'http://192.168.2.109:4000';
 
 class HttpRequest {
@@ -9,12 +10,13 @@ class HttpRequest {
     if (response.statusCode == HttpStatus.ok) {
       var responseBody = await response.transform(utf8.decoder).join();
       var json = jsonDecode(responseBody);
-      print('http result: $json');
       return json;
     } else {
-      return null;
+      print('parse request error: $response');
+      return {'code': 1, 'msg': '请求发生错误'};
     }
   }
+
   static get(String path) async {
     var httpClient = new HttpClient();
     var uri = Uri.parse(devBaseUrl + path);
@@ -23,9 +25,10 @@ class HttpRequest {
     print(response.statusCode == HttpStatus.ok);
     return parseResponse(response);
   }
+
   static post(String path, [data]) async {
     var httpClient = new HttpClient();
-    httpClient.connectionTimeout = Duration(seconds: 3);
+    httpClient.connectionTimeout = Duration(seconds: 5);
     var uri = Uri.parse(devBaseUrl + path);
     try {
       print('post start: $uri');
@@ -38,9 +41,9 @@ class HttpRequest {
       HttpClientResponse response = await request.close();
       print('post Result: $response.statusCode');
       return parseResponse(response);
-    } catch(err) {
+    } catch (err) {
       print('post error: $err');
-      return new HttpModel(1, err.toString(), null);
+      return {'code': 1, 'msg': err.toString()};
     }
   }
 }

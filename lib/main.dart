@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'flutter im start',
+      title: 'flutter im',
       theme: ThemeData(primaryColor: Colors.blue),
       home: HomePage(),
       // 注册命名路由表

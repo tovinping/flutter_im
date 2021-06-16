@@ -24,9 +24,14 @@ class _LoginState extends State {
 
   _doLogin() async {
     showLoading(context);
-    var postData = await doLogin(account: account, password: password);
-    print('login Result: ${postData.code}');
+    var loginRes = await doLogin(account: account, password: password);
+    print('login Result: ${loginRes.code}, ${loginRes.timestamp}');
     Navigator.pop(context);
+    if (loginRes.code == 0) {
+      print('登录成功');
+    } else {
+      print(loginRes.msg);
+    }
     // Future.delayed(Duration(seconds: 2), () => {
     // });
     // final http = new HttpRequest();

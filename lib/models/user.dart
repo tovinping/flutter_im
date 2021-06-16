@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:flutter_im/models/http.dart';
+
 class UserModel {
   final String name;
   final String email;
@@ -13,21 +17,26 @@ class UserModel {
       };
 }
 
-class LoginResModel {
-  final int timestamp;
+class LoginRequested extends HttpModel {
+  int timestamp = 0;
 
-  LoginResModel(this.timestamp);
-
-  factory LoginResModel.fromJson(Map<String, dynamic> json) =>
-      LoginResModel(json['timestamp']);
+  LoginRequested.fromJson(Map<String, dynamic> json)
+      : super(code: json['code'], msg: json['msg']) {
+    final data = json['data'];
+    if (data != null) {
+      this.timestamp = data;
+    }
+  }
 }
 
-class LoginReqModel {
-  final String account;
-  final String password;
+class UserListRequested extends HttpModel {
+  List<UserModel> userList = [];
 
-  LoginReqModel(this.account, this.password);
-
-  factory LoginReqModel.fromJson(Map<String, dynamic> json) =>
-      LoginReqModel(json['account'], json['password']);
+  UserListRequested.fromJson(Map<String, dynamic> json)
+      : super(code: json['code'], msg: json['msg']) {
+    final userList = json['data'];
+    if (userList != null) {
+      this.userList = userList;
+    }
+  }
 }
