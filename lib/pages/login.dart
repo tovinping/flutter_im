@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_im/api/user.dart';
 import 'package:flutter_im/utils/color.dart';
+import 'package:flutter_im/widgets/common/loading.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -21,22 +23,16 @@ class _LoginState extends State {
   }
 
   _doLogin() async {
-    return showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => Container(
-          child: Center(
-            child: SizedBox(
-              width: 50,
-              height: 50,
-              child: CircularProgressIndicator(),
-            ),
-          )),
-    );
+    showLoading(context);
+    var postData = await doLogin(account: account, password: password);
+    print('login Result: ${postData.code}');
+    Navigator.pop(context);
+    // Future.delayed(Duration(seconds: 2), () => {
+    // });
     // final http = new HttpRequest();
     // var data = await http.get();
     // print('httpRes');
     // print(data);
-    // var postData = await doLogin(account: account, password: password);
     // print('post res:');
     // print(postData);
   }
@@ -98,7 +94,7 @@ class _LoginState extends State {
                             child: Text(
                               'Login',
                             ),
-                            onPressed: _doLogin ,
+                            onPressed: _doLogin,
                           ),
                           constraints: BoxConstraints(
                               minWidth: double.infinity, minHeight: 50.0),

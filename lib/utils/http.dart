@@ -1,14 +1,15 @@
 import 'dart:io';
 import 'dart:convert';
-const devBaseUrl = 'http://192.168.2.101:4000';
+
+import 'package:flutter_im/models/http.dart';
+const devBaseUrl = 'http://192.168.2.109:4000';
 
 class HttpRequest {
   static parseResponse(HttpClientResponse response) async {
     if (response.statusCode == HttpStatus.ok) {
       var responseBody = await response.transform(utf8.decoder).join();
       var json = jsonDecode(responseBody);
-      print('http result:');
-      print(json);
+      print('http result: $json');
       return json;
     } else {
       return null;
@@ -24,14 +25,22 @@ class HttpRequest {
   }
   static post(String path, [data]) async {
     var httpClient = new HttpClient();
+    httpClient.connectionTimeout = Duration(seconds: 3);
     var uri = Uri.parse(devBaseUrl + path);
-    HttpClientRequest request = await httpClient.postUrl(uri);
-    request.headers.set('content-type', 'application/json');
-    if (data != null) {
-      print('request: $data');
-      request.add(utf8.encode(data));
+    try {
+      print('post start: $uri');
+      HttpClientRequest request = await httpClient.postUrl(uri);
+      request.headers.set('content-type', 'application/json');
+      if (data != null) {
+        print('request: $data');
+        request.add(utf8.encode(data));
+      }
+      HttpClientResponse response = await request.close();
+      print('post Result: $response.statusCode');
+      return parseResponse(response);
+    } catch(err) {
+      print('post error: $err');
+      return new HttpModel(1, err.toString(), null);
     }
-    var response = await request.close();
-    return parseResponse(response);
   }
 }
