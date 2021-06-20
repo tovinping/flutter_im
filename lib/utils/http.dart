@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:flutter_im/models/http.dart';
-
 const devBaseUrl = 'http://192.168.2.109:4000';
 
 class HttpRequest {

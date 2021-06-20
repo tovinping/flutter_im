@@ -10,11 +10,8 @@ class _ContactPage extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: Text('联系人'),
-      ),
       body: Center(
-        child: Text('联系人'),
+        child: Container(child: Text('联系人'),height: 50, width: 60, color: Colors.red,),
       ),
     );
   }

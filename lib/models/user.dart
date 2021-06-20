@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter_im/models/http.dart';
 
 class UserModel {
