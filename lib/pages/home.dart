@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_im/pages/contact.dart';
 import 'package:flutter_im/utils/color.dart';
+import 'package:flutter_im/utils/iconfont.dart';
 import 'chat.dart';
 import 'me.dart';
 
@@ -18,9 +19,9 @@ class HomePage extends StatefulWidget {
 
 class _HomeState extends State<HomePage> with SingleTickerProviderStateMixin {
   List<HomeTabItem> tabs = [
-    HomeTabItem('消息', Icon(Icons.message)),
-    HomeTabItem('联系人', Icon(Icons.contact_page)),
-    HomeTabItem('我的', Icon(Icons.person))
+    HomeTabItem('消息', Icon(IconFont.icon_xiaoxi)),
+    HomeTabItem('联系人', Icon(IconFont.icon_tongxunlu)),
+    HomeTabItem('我的', Icon(IconFont.icon_ziyuan))
   ];
   List<Widget> pages = [ChatPage(), ContactPage(), MetPage()];
   late TabController _controller;
