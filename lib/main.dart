@@ -15,11 +15,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primaryColor: Colors.blue),
       home: HomePage(),
       // 注册命名路由表
-      routes: <String, WidgetBuilder>{
-        "login": (context) => LoginPage(),
-        "demoLayout": (context) => LayoutDemo(),
-        "willPop": (context) => WillPop()
-      },
+      // routes: <String, WidgetBuilder>{
+      //   "login": (context) => LoginPage(),
+      //   "demoLayout": (context) => LayoutDemo(),
+      //   "willPop": (context) => WillPop()
+      // },
     );
   }
 }
