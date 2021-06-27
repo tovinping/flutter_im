@@ -10,3 +10,9 @@ Future<LoginRequested> doLogin({required String account, required String passwor
   final result = await HttpRequest.post('/user/login', jsonStr);
   return LoginRequested.fromJson(result);
 }
+
+Future<UserListRequested> getContacts() async {
+  final jsonStr = await HttpRequest.get('/user/list');
+  final result = UserListRequested.fromJson(jsonStr);
+  return result;
+}

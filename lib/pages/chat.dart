@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_im/widgets/common/empty.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -9,10 +10,6 @@ class _ChatPageState extends State {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('消息123'),
-      ),
-    );
+    return EmptyState();
   }
 }

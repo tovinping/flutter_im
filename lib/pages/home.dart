@@ -14,10 +14,10 @@ class HomeTabItem {
 
 class HomePage extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   List<HomeTabItem> tabs = [
     HomeTabItem('消息', Icon(IconFont.icon_xiaoxi)),
     HomeTabItem('联系人', Icon(IconFont.icon_tongxunlu)),

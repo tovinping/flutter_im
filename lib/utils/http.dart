@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 
-const devBaseUrl = 'http://192.168.2.109:4000';
+const devBaseUrl = 'http://192.168.2.101:4000';
 
 class HttpRequest {
   static parseResponse(HttpClientResponse response) async {
@@ -17,6 +17,7 @@ class HttpRequest {
 
   static get(String path) async {
     var httpClient = new HttpClient();
+    httpClient.connectionTimeout = Duration(seconds: 5);
     var uri = Uri.parse(devBaseUrl + path);
     HttpClientRequest request = await httpClient.getUrl(uri);
     HttpClientResponse response = await request.close();

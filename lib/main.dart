@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import './pages/home.dart';
-import './pages/login.dart';
-import './demo/layout.dart';
-import './demo/willPop.dart';
 
 void main() => runApp(new MyApp());
 
