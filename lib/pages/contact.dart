@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_im/api/user.dart';
 import 'package:flutter_im/constants/pageState.dart';
 import 'package:flutter_im/models/user.dart';
+import 'package:flutter_im/utils/storage.dart';
 import 'package:flutter_im/widgets/contact/contactItem.dart';
 
 class ContactPage extends StatefulWidget {
@@ -28,10 +29,35 @@ class _ContactPage extends State with AutomaticKeepAliveClientMixin {
     });
   }
 
+  _goChatRoom() {
+    print('goChatRoom');
+    addChat({
+      'conversationId': '1',
+      'type': '1',
+      'owner': '1',
+      'lastMsgId': '0',
+      'topState': '1'
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '通讯录',
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.add,
+            ),
+            tooltip: 'Open shopping cart',
+            onPressed: _goChatRoom,
+          )
+        ],
+      ),
       body: state == PageState.loading
           ? Center(child: CircularProgressIndicator())
           : ListView(

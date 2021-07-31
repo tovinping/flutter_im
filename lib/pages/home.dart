@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_im/pages/contact.dart';
 import 'package:flutter_im/utils/color.dart';
 import 'package:flutter_im/utils/iconfont.dart';
 import 'chat.dart';
+import 'contact.dart';
 import 'me.dart';
 
 class HomeTabItem {
@@ -17,7 +17,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   List<HomeTabItem> tabs = [
     HomeTabItem('消息', Icon(IconFont.icon_xiaoxi)),
     HomeTabItem('联系人', Icon(IconFont.icon_tongxunlu)),
