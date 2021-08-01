@@ -9,10 +9,10 @@ class ContactItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => {
+    return InkWell(
+      onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ChatRoom()))
+            context, MaterialPageRoute(builder: (context) => ChatRoom()));
       },
       child: Flex(
         direction: Axis.horizontal,
