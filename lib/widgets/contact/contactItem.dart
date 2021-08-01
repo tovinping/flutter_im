@@ -12,7 +12,7 @@ class ContactItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ChatRoom()));
+            context, MaterialPageRoute(builder: (context) => ChatRoom({})));
       },
       child: Flex(
         direction: Axis.horizontal,

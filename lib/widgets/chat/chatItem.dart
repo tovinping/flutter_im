@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_im/models/chat.dart';
-import '../common/avatar.dart';
+import 'package:flutter_im/widgets/common/avatar.dart';
 
 class ChatItem extends StatelessWidget {
-  ChatItem(ChatModel data);
+  final ChatModel chatInfo;
+  ChatItem(this.chatInfo);
   @override
   Widget build(BuildContext context) {
     return InkResponse(
-      onTap: () => {print('click')},
+      onTap: () => {
+        Navigator.pushNamed(context, "/chatRoom", arguments: {
+          'conversationId': '张三', //chatInfo.conversationId,
+          'type': chatInfo.type
+        })
+      },
       highlightShape: BoxShape.rectangle, // 不设置会出现个圆形
       containedInkWell: true, // 不设置点击效果是圆形
       child: Flex(
@@ -18,7 +24,10 @@ class ChatItem extends StatelessWidget {
             flex: 1,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text('姓名'), Text('最后一条消息')],
+              children: [
+                Text(chatInfo.conversationId),
+                Text(chatInfo.lastMsgId)
+              ],
             ),
           )
         ],
