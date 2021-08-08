@@ -1,20 +1,20 @@
 import 'package:flutter_im/models/http.dart';
 
-class UserModel {
+class ContactModel {
   final String account;
   final String avatar;
   final String name;
   final String email;
   final String pinyin;
 
-  UserModel(
+  ContactModel(
       {required this.account,
       required this.avatar,
       required this.name,
       required this.email,
       required this.pinyin});
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
       account: json['account'],
       avatar: json['avatar'],
       name: json['name'],
@@ -34,10 +34,10 @@ class LoginRequested extends HttpModel {
 }
 
 class UserListRequested extends HttpModel {
-  List<UserModel> userList = [];
+  List<ContactModel> userList = [];
 
   UserListRequested.fromJson(Map<String, dynamic> json) : super(json) {
     final list = json['data'] as List<dynamic>;
-    userList = list.map((item) => UserModel.fromJson(item)).toList();
+    userList = list.map((item) => ContactModel.fromJson(item)).toList();
   }
 }

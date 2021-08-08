@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_im/widgets/chat/chatList.dart';
+import 'package:flutter_im/models/chat.dart';
+import 'package:flutter_im/utils/storage.dart';
+import 'package:flutter_im/widgets/chat/chatItem.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_im/provider/chat.dart';
+import 'package:flutter_im/widgets/common/empty.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -7,19 +12,25 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State {
-  // List<ChatModel> _list = [];
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _initialData();
+  }
 
-  // Future<List<ChatModel>> _loadChatList() async {
-  //   final list = await getChatList();
-  //   return list;
-  // }
+  _initialData() async {
+    final list = await getChatList();
+    context.read<ChatProvider>().batchAddChat(list);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: ChatList());
+    List<ChatModel> chatList = context.watch<ChatProvider>().chatList;
+    return Scaffold(
+        body: chatList.length > 0
+            ? ListView(
+                children: chatList.map((e) => ChatItem(e)).toList(),
+              )
+            : EmptyState());
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_im/models/user.dart';
+import 'package:flutter_im/models/contact.dart';
 import 'package:flutter_im/pages/chatRoom.dart';
 import '../common/avatar.dart';
 
 class ContactItem extends StatelessWidget {
-  final UserModel userInfo;
+  final ContactModel userInfo;
   ContactItem(this.userInfo);
 
   @override

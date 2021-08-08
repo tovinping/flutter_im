@@ -6,11 +6,13 @@ import 'package:flutter_im/pages/home.dart';
 // import 'package:flutter_im/demo/layout.dart';
 // import 'package:flutter_im/demo/willPop.dart';
 // import 'package:flutter_im/pages/chatRoom.dart';
+import 'package:flutter_im/demo/testInherited.dart';
 
 // 声明所有页面
 final routes = {
   '/': (context, {arguments}) => HomePage(),
   '/chatRoom': (context, {arguments}) => ChatRoom(arguments),
+  '/inherited': (context, {arguments}) => InheritedWidgetTestRoute(),
 };
 
 // 处理参数传递

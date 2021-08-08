@@ -17,17 +17,23 @@ void setHistoryAccout(List<String> accountList) async {
 class MySqlite {
   static Database? _db;
   static init() async {
-    _db = await openDatabase('my_db.db',
-        version: 3,
-        onCreate: (Database db, int version) => {
-              db.execute(
-                  'CREATE TABLE chats(id INTEGER PRIMARY KEY, conversationId TEXT, owner TEXT, type TEXT, lastMsgId TEXT, topState TEXT)')
-            },
-        onUpgrade: (Database db, int oldVersion, int newVersion) => {
-              db.execute(
-                  'CREATE TABLE chats(id INTEGER PRIMARY KEY, conversationId TEXT, owner TEXT, type TEXT, lastMsgId TEXT, topState TEXT)')
-            },
-        onOpen: (Database db) => {print('db on open')});
+    _db = await openDatabase(
+      'my_db.db',
+      version: 4,
+      onCreate: (Database? db, int version) => {
+        print('db onCreate $version'),
+        db?.execute(
+            'CREATE TABLE chats(id INTEGER PRIMARY KEY, conversationId TEXT, owner TEXT, type TEXT, lastMsgId TEXT, topState TEXT)')
+      },
+      onUpgrade: (Database db, int oldVersion, int newVersion) => {
+        // db.execute(
+        //     'CREATE TABLE chats(id INTEGER PRIMARY KEY, conversationId TEXT, owner TEXT, type TEXT, lastMsgId TEXT, topState TEXT)'),
+        print('db onUpgrade $db, $oldVersion, $newVersion')
+      },
+      onOpen: (Database db) => {print('db on open')},
+    ).catchError((error) {
+      print('open db is error: $error');
+    });
   }
 
   static Future<Database> getInstance() async {
@@ -46,15 +52,16 @@ Future<List<ChatModel>> getChatList() async {
   return result.map((e) => ChatModel.fromJson(e)).toList();
 }
 
-addChat(dynamic data) async {
+addChat(ChatModel data) async {
   final db = await MySqlite.getInstance();
-  final result = await db.insert('chats', data);
+  final result = await db.insert('chats', data.toJson());
   return result;
 }
 
-removeChat(String id) async {
+removeChat(String conversationId) async {
   final db = await MySqlite.getInstance();
-  final result = await db.delete('chat', where: id);
+  final result = await db
+      .delete('chats', where: 'conversationId=?', whereArgs: [conversationId]);
   return result;
 }
 

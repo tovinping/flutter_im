@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_im/api/user.dart';
+import 'package:flutter_im/api/contact.dart';
 import 'package:flutter_im/utils/color.dart';
 import 'package:flutter_im/widgets/common/loading.dart';
 

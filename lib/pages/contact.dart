@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_im/api/user.dart';
+import 'package:flutter_im/api/contact.dart';
 import 'package:flutter_im/constants/pageState.dart';
-import 'package:flutter_im/models/user.dart';
-import 'package:flutter_im/utils/storage.dart';
+import 'package:flutter_im/models/contact.dart';
 import 'package:flutter_im/widgets/contact/contactItem.dart';
 
 class ContactPage extends StatefulWidget {
@@ -13,7 +12,7 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPage extends State with AutomaticKeepAliveClientMixin {
-  List<UserModel> userList = [];
+  List<ContactModel> userList = [];
   PageState state = PageState.loading;
   @override
   void initState() {
@@ -31,13 +30,7 @@ class _ContactPage extends State with AutomaticKeepAliveClientMixin {
 
   _goChatRoom() {
     print('goChatRoom');
-    addChat({
-      'conversationId': '1',
-      'type': '1',
-      'owner': '1',
-      'lastMsgId': '0',
-      'topState': '1'
-    });
+    Navigator.pushNamed(context, '/inherited');
   }
 
   @override
