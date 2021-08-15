@@ -3,29 +3,43 @@ import 'dart:convert';
 
 const devBaseUrl = 'http://192.168.2.101:4000';
 
-class HttpRequest {
-  static parseResponse(HttpClientResponse response) async {
-    if (response.statusCode == HttpStatus.ok) {
-      var responseBody = await response.transform(utf8.decoder).join();
-      var json = jsonDecode(responseBody);
-      return json;
+class HttpResult<T> {
+  int code;
+  String msg;
+  T? data;
+  HttpResult(this.code, this.msg, this.data);
+  factory HttpResult.fromJson(String responseStr, Function formatFn) {
+    final json = jsonDecode(responseStr);
+    print('FFFF $json');
+    if (json['data'] != null) {
+      return HttpResult(json['code'], json['msg'], formatFn(json['data']));
     } else {
-      print('parse request error: $response');
-      return {'code': 1, 'msg': '请求发生错误'};
+      return HttpResult(json['code'], json['msg'], null);
+    }
+  }
+}
+
+class HttpRequest {
+  static Future<String> parseResponse(HttpClientResponse response) async {
+    if (response.statusCode == HttpStatus.ok) {
+      final responseStr = response.transform(utf8.decoder).join();
+      return responseStr;
+    } else {
+      print('parse request error code: ${response.statusCode}');
+      return '{"code": 1, "msg": "请求发生错误"}';
     }
   }
 
-  static get(String path) async {
+  static Future<String> get(String path) async {
     var httpClient = new HttpClient();
     httpClient.connectionTimeout = Duration(seconds: 5);
     var uri = Uri.parse(devBaseUrl + path);
     HttpClientRequest request = await httpClient.getUrl(uri);
     HttpClientResponse response = await request.close();
-    print(response.statusCode == HttpStatus.ok);
     return parseResponse(response);
   }
 
-  static post(String path, [data]) async {
+  static Future<String> post(String path, [data]) async {
     var httpClient = new HttpClient();
     httpClient.connectionTimeout = Duration(seconds: 5);
     var uri = Uri.parse(devBaseUrl + path);
@@ -42,7 +56,7 @@ class HttpRequest {
       return parseResponse(response);
     } catch (err) {
       print('post error: $err');
-      return {'code': 1, 'msg': err.toString()};
+      return '{"code": 1, "msg": "$err"}';
     }
   }
 }

@@ -22,10 +22,12 @@ class _ContactPage extends State with AutomaticKeepAliveClientMixin {
 
   _loadContact() async {
     final result = await getContacts();
-    this.setState(() {
-      userList = result.userList;
-      state = PageState.finished;
-    });
+    if (result.code == 0) {
+      this.setState(() {
+        userList = result.data!;
+        state = PageState.finished;
+      });
+    }
   }
 
   _goChatRoom() {

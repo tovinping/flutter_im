@@ -24,13 +24,13 @@ class _LoginState extends State {
 
   _doLogin() async {
     showLoading(context);
-    var loginRes = await doLogin(account: account, password: password);
-    print('login Result: ${loginRes.code}, ${loginRes.timestamp}');
+    var result = await doLogin(account: account, password: password);
+    print('login Result: ${result.code}, ${result.data}');
     Navigator.pop(context);
-    if (loginRes.code == 0) {
+    if (result.code == 0) {
       print('登录成功');
     } else {
-      print(loginRes.msg);
+      print(result.msg);
     }
     // Future.delayed(Duration(seconds: 2), () => {
     // });

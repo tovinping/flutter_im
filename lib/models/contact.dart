@@ -1,5 +1,3 @@
-import 'package:flutter_im/models/http.dart';
-
 class ContactModel {
   final String account;
   final String avatar;
@@ -14,7 +12,7 @@ class ContactModel {
       required this.email,
       required this.pinyin});
 
-  factory ContactModel.fromJson(Map<String, dynamic> json) => ContactModel(
+  static ContactModel fromJson(Map<String, dynamic> json) => ContactModel(
       account: json['account'],
       avatar: json['avatar'],
       name: json['name'],
@@ -22,22 +20,10 @@ class ContactModel {
       pinyin: json['pinyin']);
 }
 
-class LoginRequested extends HttpModel {
+class LoginRequested {
   int timestamp = 0;
-
-  LoginRequested.fromJson(Map<String, dynamic> json) : super(json) {
-    final data = json['data'];
-    if (data != null) {
-      this.timestamp = data;
-    }
-  }
-}
-
-class UserListRequested extends HttpModel {
-  List<ContactModel> userList = [];
-
-  UserListRequested.fromJson(Map<String, dynamic> json) : super(json) {
-    final list = json['data'] as List<dynamic>;
-    userList = list.map((item) => ContactModel.fromJson(item)).toList();
+  LoginRequested(this.timestamp);
+  static fromJson(int json) {
+    return LoginRequested(json);
   }
 }

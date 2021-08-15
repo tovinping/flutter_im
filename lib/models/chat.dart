@@ -1,5 +1,3 @@
-import 'package:flutter_im/models/http.dart';
-
 class ChatModel {
   final String conversationId;
   final String owner;
@@ -29,10 +27,10 @@ class ChatModel {
       };
 }
 
-class UserListRequested extends HttpModel {
+class UserListRequested {
   List<ChatModel> userList = [];
 
-  UserListRequested.fromJson(Map<String, dynamic> json) : super(json) {
+  UserListRequested.fromJson(Map<String, dynamic> json) {
     final list = json['data'] as List<dynamic>;
     userList = list.map((item) => ChatModel.fromJson(item)).toList();
   }
